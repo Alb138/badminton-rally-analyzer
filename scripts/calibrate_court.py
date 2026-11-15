@@ -1,12 +1,15 @@
-"""Click the 4 outer court corners on a clip's first frame and save the calibration.
+"""Click the 4 outer court corners on a clip frame and save the calibration.
 
-Usage: uv run python scripts/calibrate_court.py VIDEO --out CAL.json
+Usage: uv run python scripts/calibrate_court.py VIDEO --out CAL.json [--frame N]
+
+Broadcast clips often open on a replay camera; use --frame to pick a frame showing the main view.
 
 Left-click the outer (doubles) corners in any order. Keys: r = reset,
 Enter = save (needs 4 points), Esc = quit without saving.
 """
 import argparse
 import sys
+from itertools import islice
 from pathlib import Path
 
 import cv2
@@ -21,11 +24,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("video", type=Path)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--frame", type=int, default=0, help="frame index to calibrate on (default 0)")
     args = parser.parse_args()
 
-    frame = next(iter(iter_frames(args.video)), None)
+    frame = next(islice(iter_frames(args.video), args.frame, None), None)
     if frame is None:
-        print(f"could not read a frame from {args.video}", file=sys.stderr)
+        print(f"could not read frame {args.frame} from {args.video}", file=sys.stderr)
         return 1
     points: list[tuple[int, int]] = []
 
