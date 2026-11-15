@@ -36,6 +36,13 @@ def test_same_hitter_twice_keeps_sharper_turn():
     assert got[0] == (0, "far") and len(got) == 2 and got[1][1] == "near" and abs(got[1][0] - 45) <= 1
 
 
+def test_same_hitter_far_apart_keeps_both():
+    # A missed opponent hit must not make every later hit by this player collapse into one.
+    shuttle = polyline([(0, (640, 200)), (30, (640, 470)), (50, (660, 420)), (70, (640, 470)), (100, (640, 200))])
+    near = [frame for frame, hitter in hits_of(shuttle, 101) if hitter == "near"]
+    assert len(near) == 3 and all(abs(a - b) <= 1 for a, b in zip(near, [30, 50, 70]))
+
+
 def test_thresholds_scale_with_fps():
     got = hits_of(polyline([(0, (640, 200)), (60, (640, 470)), (120, (640, 200))]), 121, fps=60.0)
     assert len(got) == 2 and abs(got[1][0] - 60) <= 2

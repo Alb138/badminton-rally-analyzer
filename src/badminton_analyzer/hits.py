@@ -26,6 +26,7 @@ class HitParams:
     max_gap_s: float = 0.1
     serve_speed_frac: float = 0.2  # frame heights per second
     bbox_top_extend: float = 0.3
+    merge_same_hitter_s: float = 0.6  # same-hitter hits further apart are kept (opponent's hit was missed)
 
 
 def _empty() -> pd.DataFrame:
@@ -102,9 +103,12 @@ def detect_hits(frames: pd.DataFrame, fps: float, frame_height: int, params: Hit
             clustered.append(hit)
         last_frame = hit[0]
 
+    # Singles: hitters alternate. Merge only same-hitter hits close in time; further apart, the
+    # opponent's hit in between was probably missed, and merging would cascade one error over the rally.
+    merge_gap = params.merge_same_hitter_s * fps
     kept: list[tuple[int, str, float]] = []
-    for hit in clustered:  # singles: hitters alternate
-        if kept and kept[-1][1] == hit[1]:
+    for hit in clustered:
+        if kept and kept[-1][1] == hit[1] and hit[0] - kept[-1][0] <= merge_gap:
             if hit[2] > kept[-1][2]:
                 kept[-1] = hit
         else:

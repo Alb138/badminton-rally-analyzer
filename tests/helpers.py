@@ -5,7 +5,10 @@ import cv2
 import numpy as np
 import pandas as pd
 
+from badminton_analyzer.pose import PersonDetection
 from badminton_analyzer.schema import empty_frames_table
+
+CONFIG = Path(__file__).parents[1] / "configs" / "pipeline.yaml"
 
 # Court corner clicks, ordered far_left, far_right, near_right, near_left.
 CLICKS_160 = [(40, 20), (120, 20), (150, 85), (10, 85)]
@@ -47,3 +50,32 @@ def polyline(keyframes: list[tuple[int, tuple[float, float]]]) -> dict[int, tupl
             t = (f - f0) / (f1 - f0)
             out[f] = (p0[0] + t * (p1[0] - p0[0]), p0[1] + t * (p1[1] - p0[1]))
     return out
+
+
+class FakeTracker:
+    """Serve from the far player at frame 0, return by the near player at frame 30 (CLICKS_160 geometry)."""
+
+    def __init__(self, n: int = 60):
+        self.n = n
+
+    def track(self, video_path):
+        pts = polyline([(0, (80, 25)), (30, (80, 70)), (59, (80, 25))])
+        frames = range(self.n)
+        return pd.DataFrame(
+            {
+                "frame": list(frames),
+                "visible": [i in pts for i in frames],
+                "x": [pts[i][0] if i in pts else np.nan for i in frames],
+                "y": [pts[i][1] if i in pts else np.nan for i in frames],
+            }
+        )
+
+
+class FakePose:
+    """A near and a far player standing still (CLICKS_160 geometry)."""
+
+    def detect(self, frame):
+        return [
+            PersonDetection(np.array([70, 55, 90, 88.0]), np.zeros((17, 3)), 0.9),
+            PersonDetection(np.array([72, 12, 88, 34.0]), np.zeros((17, 3)), 0.9),
+        ]

@@ -1,0 +1,10 @@
+tracker:
+  kind: tracknetv3
+  repo_dir: third_party/TrackNetV3
+  tracknet_ckpt: third_party/TrackNetV3/ckpts/TrackNet_best.pt
+  inpaintnet_ckpt: third_party/TrackNetV3/ckpts/InpaintNet_best.pt
+  work_dir: outputs/_tracknet
+  batch_size: 2   # 16 spills past a 4 GB GPU and runs ~4x slower
+pose: {weights: third_party/weights/yolov8m-pose.pt, conf: 0.3, side_margin_m: 0.75, end_margin_m: 2.0}
+hits: {min_gap_s: 0.25, min_turn_deg: 45.0, max_hitter_dist_frac: 0.12, smooth_window: 3, max_gap_s: 0.1, serve_speed_frac: 0.2, bbox_top_extend: 0.3, merge_same_hitter_s: 0.6}
+render: {trail_length: 8, label_duration_s: 0.7, inset_width_frac: 0.18}
