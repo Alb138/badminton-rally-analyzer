@@ -8,5 +8,5 @@ Status: Phase 1 in progress.
 
 - **NYCU Shuttlecock Trajectory Dataset**: per-frame shuttle labels used for tracking ([dataset page](https://hackmd.io/@TUIK/rJkRW54cU)).
 - **ShuttleSet** (Wang et al., KDD 2023): stroke-level annotations of professional singles matches ([paper](https://arxiv.org/abs/2306.04948), [code](https://github.com/wywyWang/CoachAI-Projects)).
-- **TrackNetV3**: pretrained shuttle tracker, used as the Phase 1 baseline ([repo](https://github.com/qaz812345/TrackNetV3)).
+- **TrackNetV3** (MIT): pretrained shuttle tracker and checkpoints, used as the Phase 1 baseline ([repo](https://github.com/qaz812345/TrackNetV3), commit `6eda442`).
 - **Ultralytics YOLOv8**: pose estimation and detection (AGPL-3.0).

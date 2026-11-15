@@ -25,6 +25,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+tracknetv3 = [
+    "parse>=1.22.4",
+    "pycocotools>=2.0.11",
+]
 
 [project.scripts]
 badminton-analyze = "badminton_analyzer.pipeline:main"
