@@ -1,0 +1,21 @@
+# ShuttleSet raw shot type -> merged class used for shot recognition.
+# English names follow the ShuttleSet paper's shot-type table.
+放小球: net          # net shot
+擋小球: net          # return net
+勾球: net            # cross-court net shot
+殺球: smash          # smash
+點扣: smash          # wrist smash
+挑球: lob            # lob
+防守回挑: lob        # defensive return lob
+長球: clear          # clear
+平球: drive          # drive
+小平球: drive        # driven flight
+後場抽平球: drive    # back-court drive
+防守回抽: drive      # defensive return drive
+切球: drop           # drop
+過度切球: drop       # passive drop
+推球: push_rush      # push
+撲球: push_rush      # rush
+發短球: serve        # short service
+發長球: serve        # long service
+未知球種: _exclude   # unknown shot type

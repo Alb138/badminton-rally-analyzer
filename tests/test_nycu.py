@@ -21,3 +21,18 @@ def test_index_nycu_pairs_labels_with_videos(tmp_path):
     with pytest.warns(UserWarning, match="1 label file"):
         rallies = index_nycu(tmp_path)
     assert [(r.match_id, r.rally_id) for r in rallies] == [("train/match1", "1_01_00")]
+
+
+def test_index_nycu_reads_published_layout(tmp_path):
+    for top in ("profession_dataset", "amateur_dataset"):
+        match = tmp_path / "TrackNetV2" / top / "match1"
+        (match / "ball_trajectory").mkdir(parents=True)
+        (match / "rally_video").mkdir(parents=True)
+        (match / "ball_trajectory" / "1_04_02_ball.csv").write_text("Frame,Visibility,X,Y\n")
+        (match / "rally_video" / "1_04_02.mp4").write_bytes(b"")
+    rallies = index_nycu(tmp_path)
+    assert [r.match_id for r in rallies] == [
+        "TrackNetV2/amateur_dataset/match1",
+        "TrackNetV2/profession_dataset/match1",
+    ]
+    assert rallies[0].video_path.name == "1_04_02.mp4"
