@@ -22,6 +22,17 @@ def test_collinear_corners_rejected():
         calibrate([(0, 0), (50, 0), (100, 0), (150, 0)])
 
 
+def test_duplicated_corner_rejected():
+    # A double-click on one corner must not yield a silently useless homography.
+    with pytest.raises(ValueError, match="corners"):
+        calibrate([CLICKS_720[0], CLICKS_720[0], CLICKS_720[2], CLICKS_720[3]])
+
+
+def test_three_collinear_corners_rejected():
+    with pytest.raises(ValueError, match="corners"):
+        calibrate([(400, 200), (640, 200), (880, 200), (640, 650)])
+
+
 def test_wrong_number_of_points_rejected():
     with pytest.raises(ValueError, match="4"):
         calibrate(CLICKS_720[:3])
