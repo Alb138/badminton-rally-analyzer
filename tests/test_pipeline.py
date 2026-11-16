@@ -1,6 +1,7 @@
 import json
 
 import pandas as pd
+import pytest
 
 from badminton_analyzer import pipeline
 from badminton_analyzer.court import calibrate, save_calibration
@@ -29,6 +30,26 @@ def test_pipeline_writes_all_outputs(tmp_path):
 def test_tracker_output_longer_than_video_is_clipped(tmp_path):
     out = run(tmp_path, FakeTracker(n=70))
     assert len(pd.read_parquet(out.frames_path)) == 60
+
+
+def test_tracker_failure_stops_before_pose(tmp_path):
+    # The tracker is the stage most likely to reject an input; fail before the long pose pass.
+    class FailingTracker:
+        def track(self, video_path):
+            raise RuntimeError("tracker rejected the clip")
+
+    class CountingPose(FakePose):
+        calls = 0
+
+        def detect(self, frame):
+            CountingPose.calls += 1
+            return super().detect(frame)
+
+    video = make_video(tmp_path / "v.mp4", n_frames=10)
+    with pytest.raises(RuntimeError, match="rejected"):
+        run_pipeline(video, calibrate(CLICKS_160), tmp_path / "o", FailingTracker(), CountingPose(),
+                     UnknownShotClassifier(), load_pipeline_config(CONFIG))
+    assert CountingPose.calls == 0
 
 
 def test_cli_main(monkeypatch, tmp_path):

@@ -86,10 +86,11 @@ def run_pipeline(
     meta = read_video_meta(video_path)
     fps = meta.fps or 30.0
 
+    shuttle = tracker.track(video_path)  # first: the stage most likely to reject an input
     frames = extract_players(
         video_path, pose, calibration, float(cfg.pose["side_margin_m"]), float(cfg.pose["end_margin_m"])
     )
-    frames = _merge_shuttle(frames, tracker.track(video_path))
+    frames = _merge_shuttle(frames, shuttle)
     validate_frames(frames)
     hits = detect_hits(frames, fps, meta.height, cfg.hits)
     shots = build_shots_table(frames, hits, shot_classifier.classify(video_path, frames, hits))
