@@ -80,3 +80,7 @@ uv run pytest
 - **ShuttleSet** (Wang et al., KDD 2023): stroke-level annotations of professional singles matches ([paper](https://arxiv.org/abs/2306.04948), [code](https://github.com/wywyWang/CoachAI-Projects)).
 - **TrackNetV3** (MIT): pretrained shuttle tracker and checkpoints, used as the Phase 1 baseline ([repo](https://github.com/qaz812345/TrackNetV3), commit `6eda442`).
 - **Ultralytics YOLOv8**: pose estimation and detection (AGPL-3.0).
+
+## License
+
+This project is licensed under the [GNU Affero General Public License v3.0](LICENSE) (AGPL-3.0-only), matching the AGPL-3.0 licence of Ultralytics YOLOv8, which it depends on. The datasets keep their own terms and are not redistributed here.
