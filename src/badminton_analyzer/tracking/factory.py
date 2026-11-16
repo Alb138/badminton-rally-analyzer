@@ -30,7 +30,18 @@ def _tracknet(cfg: dict) -> ShuttleTracker:
                            batch_size=int(cfg.get("batch_size", 4)), threshold=float(cfg.get("threshold", 0.5)))
 
 
-BUILDERS: dict[str, Callable[[dict], ShuttleTracker]] = {"tracknetv3": _tracknetv3, "tracknet": _tracknet}
+def _yolo(cfg: dict) -> ShuttleTracker:
+    from badminton_analyzer.tracking.yolo_tracker import YoloShuttleTracker
+
+    return YoloShuttleTracker(_existing(cfg["weights"]), conf=float(cfg.get("conf", 0.25)),
+                              imgsz=int(cfg.get("imgsz", 1280)), device=cfg.get("device"))
+
+
+BUILDERS: dict[str, Callable[[dict], ShuttleTracker]] = {
+    "tracknetv3": _tracknetv3,
+    "tracknet": _tracknet,
+    "yolo": _yolo,
+}
 
 
 def make_tracker(cfg: dict) -> ShuttleTracker:

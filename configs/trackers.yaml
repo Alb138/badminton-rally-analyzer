@@ -11,3 +11,8 @@ tracknet:
   weights: models/tracknet_best.pt   # from scripts/train_tracknet.py (Kaggle or local)
   batch_size: 4
   threshold: 0.5
+yolo:
+  kind: yolo
+  weights: models/yolo_best.pt   # from scripts/train_yolo.py (Kaggle or local)
+  conf: 0.25
+  imgsz: 1280
