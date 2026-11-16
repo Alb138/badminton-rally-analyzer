@@ -16,7 +16,21 @@ def _tracknetv3(cfg: dict) -> ShuttleTracker:
     )
 
 
-BUILDERS: dict[str, Callable[[dict], ShuttleTracker]] = {"tracknetv3": _tracknetv3}
+def _existing(path: str) -> Path:
+    p = Path(path)
+    if not p.exists():
+        raise FileNotFoundError(f"tracker weights not found: {p.as_posix()}")
+    return p
+
+
+def _tracknet(cfg: dict) -> ShuttleTracker:
+    from badminton_analyzer.tracking.tracknet_tracker import TrackNetTracker
+
+    return TrackNetTracker(_existing(cfg["weights"]), device=cfg.get("device"),
+                           batch_size=int(cfg.get("batch_size", 4)), threshold=float(cfg.get("threshold", 0.5)))
+
+
+BUILDERS: dict[str, Callable[[dict], ShuttleTracker]] = {"tracknetv3": _tracknetv3, "tracknet": _tracknet}
 
 
 def make_tracker(cfg: dict) -> ShuttleTracker:

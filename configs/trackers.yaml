@@ -6,3 +6,8 @@ tracknetv3:
   inpaintnet_ckpt: third_party/TrackNetV3/ckpts/InpaintNet_best.pt
   work_dir: outputs/_tracknet
   batch_size: 2
+tracknet:
+  kind: tracknet
+  weights: models/tracknet_best.pt   # from scripts/train_tracknet.py (Kaggle or local)
+  batch_size: 4
+  threshold: 0.5
