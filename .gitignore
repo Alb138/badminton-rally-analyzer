@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+/data/
+/third_party/
+/outputs/
+*.pt
+*.mp4
+mlruns/
+wandb/

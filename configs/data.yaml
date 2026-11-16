@@ -1,0 +1,13 @@
+nycu:
+  root: data/raw/nycu
+  # The download (TrackNetV2.zip) has Professional/ (23 matches), Test/ (3, the official
+  # test set the TrackNetV2/V3 papers report on) and Amateur/ (3).
+  amateur_match_pattern: Amateur/
+  test_match_pattern: Test/
+shuttleset:
+  root: data/raw/shuttleset/set
+  match_csv: data/raw/shuttleset/set/match.csv
+  match_id_column: video   # equals the stroke folders' names
+  url_column: url
+  class_map: configs/shot_classes.yaml
+splits: {seed: 42, val_frac: 0.15, test_frac: 0.15}
