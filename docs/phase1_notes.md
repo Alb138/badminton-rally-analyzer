@@ -21,6 +21,7 @@ Pipeline: TrackNetV3 (pretrained, with InpaintNet), YOLOv8m-pose, 4 clicked cour
   - 12 detected vs 16 true: precision 0.92, recall 0.69
   - hitter correct for 10 of 11 matched hits
   - missed hits at frames 120, 220, 320, 358 and 395
+  - **These numbers are optimistic.** The `merge_same_hitter_s` rule was added after seeing failures on this exact clip; before it, only 6 hits were found and none after frame 229. The match is also in the ShuttleSet *val* split, so Phase 3 must report hit detection on the test matches only.
 
 ## What fails
 
