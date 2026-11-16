@@ -1,0 +1,8 @@
+# Shuttle trackers that scripts/eval_trackers.py can score (each section goes to make_tracker).
+tracknetv3:
+  kind: tracknetv3
+  repo_dir: third_party/TrackNetV3
+  tracknet_ckpt: third_party/TrackNetV3/ckpts/TrackNet_best.pt
+  inpaintnet_ckpt: third_party/TrackNetV3/ckpts/InpaintNet_best.pt
+  work_dir: outputs/_tracknet
+  batch_size: 2

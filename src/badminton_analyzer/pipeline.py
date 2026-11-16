@@ -18,7 +18,7 @@ from badminton_analyzer.schema import validate_frames, validate_shots
 from badminton_analyzer.shots import ShotClassifier, UnknownShotClassifier, build_shots_table
 from badminton_analyzer.stats import rally_stats
 from badminton_analyzer.tracking.base import ShuttleTracker
-from badminton_analyzer.tracking.tracknetv3 import TrackNetV3Tracker
+from badminton_analyzer.tracking.factory import make_tracker
 from badminton_analyzer.video_io import read_video_meta
 
 
@@ -49,18 +49,8 @@ def load_pipeline_config(path: Path) -> PipelineConfig:
 
 
 def build_default_components(cfg: PipelineConfig) -> tuple[ShuttleTracker, PoseEstimator, ShotClassifier]:
-    t = cfg.tracker
-    if t.get("kind") != "tracknetv3":
-        raise ValueError(f"unknown tracker kind: {t.get('kind')}")
-    tracker = TrackNetV3Tracker(
-        repo_dir=Path(t["repo_dir"]).resolve(),
-        tracknet_ckpt=Path(t["tracknet_ckpt"]).resolve(),
-        inpaintnet_ckpt=Path(t["inpaintnet_ckpt"]).resolve(),
-        work_dir=Path(t["work_dir"]).resolve(),
-        batch_size=int(t["batch_size"]),
-    )
     pose = YoloPoseEstimator(cfg.pose["weights"], conf=float(cfg.pose["conf"]))
-    return tracker, pose, UnknownShotClassifier()
+    return make_tracker(cfg.tracker), pose, UnknownShotClassifier()
 
 
 def _merge_shuttle(frames: pd.DataFrame, shuttle: pd.DataFrame) -> pd.DataFrame:
