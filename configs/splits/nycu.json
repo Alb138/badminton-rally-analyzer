@@ -1,0 +1,39 @@
+{
+  "train": [
+    "TrackNetV2/TrackNetV2/Professional/match1",
+    "TrackNetV2/TrackNetV2/Professional/match10",
+    "TrackNetV2/TrackNetV2/Professional/match12",
+    "TrackNetV2/TrackNetV2/Professional/match13",
+    "TrackNetV2/TrackNetV2/Professional/match14",
+    "TrackNetV2/TrackNetV2/Professional/match15",
+    "TrackNetV2/TrackNetV2/Professional/match16",
+    "TrackNetV2/TrackNetV2/Professional/match17",
+    "TrackNetV2/TrackNetV2/Professional/match18",
+    "TrackNetV2/TrackNetV2/Professional/match19",
+    "TrackNetV2/TrackNetV2/Professional/match2",
+    "TrackNetV2/TrackNetV2/Professional/match20",
+    "TrackNetV2/TrackNetV2/Professional/match21",
+    "TrackNetV2/TrackNetV2/Professional/match22",
+    "TrackNetV2/TrackNetV2/Professional/match4",
+    "TrackNetV2/TrackNetV2/Professional/match5",
+    "TrackNetV2/TrackNetV2/Professional/match6",
+    "TrackNetV2/TrackNetV2/Professional/match7",
+    "TrackNetV2/TrackNetV2/Professional/match8",
+    "TrackNetV2/TrackNetV2/Professional/match9"
+  ],
+  "val": [
+    "TrackNetV2/TrackNetV2/Professional/match11",
+    "TrackNetV2/TrackNetV2/Professional/match23",
+    "TrackNetV2/TrackNetV2/Professional/match3"
+  ],
+  "test": [
+    "TrackNetV2/TrackNetV2/Test/match1",
+    "TrackNetV2/TrackNetV2/Test/match2",
+    "TrackNetV2/TrackNetV2/Test/match3"
+  ],
+  "amateur_test": [
+    "TrackNetV2/TrackNetV2/Amateur/match1",
+    "TrackNetV2/TrackNetV2/Amateur/match2",
+    "TrackNetV2/TrackNetV2/Amateur/match3"
+  ]
+}

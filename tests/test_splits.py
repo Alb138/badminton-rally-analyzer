@@ -19,6 +19,12 @@ def test_splits_change_with_seed():
     assert make_match_splits(IDS, 0.15, 0.15, 1) != make_match_splits(IDS, 0.15, 0.15, 2)
 
 
+def test_zero_test_fraction_leaves_test_empty():
+    # Used when a dataset ships its own official test matches.
+    s = make_match_splits(IDS, val_frac=0.15, test_frac=0.0, seed=42)
+    assert s["test"] == [] and len(s["val"]) == 3 and len(s["train"]) == 17
+
+
 def test_splits_need_three_matches():
     with pytest.raises(ValueError):
         make_match_splits(["a", "b"], 0.15, 0.15, 42)

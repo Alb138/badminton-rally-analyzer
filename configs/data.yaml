@@ -1,7 +1,9 @@
 nycu:
   root: data/raw/nycu
-  # The published download puts the 3 amateur matches under amateur_dataset/.
-  amateur_match_pattern: amateur_dataset/
+  # The download (TrackNetV2.zip) has Professional/ (23 matches), Test/ (3, the official
+  # test set the TrackNetV2/V3 papers report on) and Amateur/ (3).
+  amateur_match_pattern: Amateur/
+  test_match_pattern: Test/
 shuttleset:
   root: data/raw/shuttleset/set
   match_csv: data/raw/shuttleset/set/match.csv

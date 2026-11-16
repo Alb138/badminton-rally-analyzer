@@ -38,18 +38,26 @@ def nycu_section(cfg: dict, split_cfg: dict) -> list[str]:
         rallies=("frames", "size"), frames=("frames", "sum"), visible=("visible", "sum")
     ).reset_index()
     per_match["visible_share"] = (per_match["visible"] / per_match["frames"]).round(3)
-    pattern = cfg["amateur_match_pattern"]
-    per_match["amateur"] = per_match["match"].str.contains(pattern, regex=False)
-    amateur = sorted(per_match.loc[per_match["amateur"], "match"])
-    pro = sorted(per_match.loc[~per_match["amateur"], "match"])
+    test_pattern = cfg.get("test_match_pattern")
+    per_match["group"] = "professional"
+    if test_pattern:
+        per_match.loc[per_match["match"].str.contains(test_pattern, regex=False), "group"] = "official test"
+    per_match.loc[per_match["match"].str.contains(cfg["amateur_match_pattern"], regex=False), "group"] = "amateur"
+    by_group = {g: sorted(per_match.loc[per_match["group"] == g, "match"]) for g in ("professional", "official test", "amateur")}
     lines += [
-        f"Matches: {len(per_match)} ({len(pro)} professional, {len(amateur)} amateur). "
+        f"Matches: {len(per_match)} ({len(by_group['professional'])} professional, "
+        f"{len(by_group['official test'])} official test, {len(by_group['amateur'])} amateur). "
         f"Rallies: {len(per_rally)}. Frames: {int(per_match['frames'].sum())}.",
         "",
         *_table(per_match.drop(columns="visible")),
     ]
-    splits = make_match_splits(pro, split_cfg["val_frac"], split_cfg["test_frac"], split_cfg["seed"])
-    splits["amateur_test"] = amateur
+    # The dataset's own test matches (the ones TrackNetV2/V3 report on) become our test split,
+    # so tracking results are comparable with published numbers.
+    test_frac = 0.0 if by_group["official test"] else split_cfg["test_frac"]
+    splits = make_match_splits(by_group["professional"], split_cfg["val_frac"], test_frac, split_cfg["seed"])
+    if by_group["official test"]:
+        splits["test"] = by_group["official test"]
+    splits["amateur_test"] = by_group["amateur"]
     save_splits(splits, SPLITS_DIR / "nycu.json")
     lines += [f"Splits written to `{(SPLITS_DIR / 'nycu.json').as_posix()}`: "
               + ", ".join(f"{k} {len(v)}" for k, v in splits.items()), ""]
