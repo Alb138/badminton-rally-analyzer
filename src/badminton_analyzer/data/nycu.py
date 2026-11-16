@@ -51,7 +51,8 @@ def index_nycu(root: Path) -> list[NycuRally]:
             if not video_path.exists():
                 unpaired += 1
                 continue
-            match_id = match_dir.relative_to(root).as_posix()
+            # "<group>/<match>", e.g. "Professional/match1": independent of the folders the zip was unpacked into.
+            match_id = f"{match_dir.parent.name}/{match_dir.name}"
             rallies.append(NycuRally(match_id, rally_id, video_path, label_path))
     if unpaired:
         warnings.warn(f"skipped {unpaired} label file(s) with no matching video", UserWarning, stacklevel=2)

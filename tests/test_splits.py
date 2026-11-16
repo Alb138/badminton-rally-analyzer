@@ -1,6 +1,12 @@
 import pytest
 
-from badminton_analyzer.data.splits import load_splits, make_match_splits, save_splits
+from badminton_analyzer.data.splits import (
+    SplitMismatchError,
+    load_splits,
+    make_match_splits,
+    save_splits,
+    sync_splits,
+)
 
 IDS = [f"m{i}" for i in range(20)]
 
@@ -34,3 +40,25 @@ def test_save_load_roundtrip(tmp_path):
     s = make_match_splits(IDS, 0.15, 0.15, 42)
     save_splits(s, tmp_path / "s.json")
     assert load_splits(tmp_path / "s.json") == s
+
+
+def test_sync_splits_writes_only_when_asked(tmp_path):
+    s = make_match_splits(IDS, 0.15, 0.15, 42)
+    with pytest.raises(SplitMismatchError, match="--write-splits"):
+        sync_splits(s, tmp_path / "s.json", write=False)
+    sync_splits(s, tmp_path / "s.json", write=True)
+    assert load_splits(tmp_path / "s.json") == s
+
+
+def test_sync_splits_accepts_matching_committed_file(tmp_path):
+    s = make_match_splits(IDS, 0.15, 0.15, 42)
+    save_splits(s, tmp_path / "s.json")
+    sync_splits(s, tmp_path / "s.json", write=False)
+
+
+def test_sync_splits_refuses_to_overwrite_a_different_file(tmp_path):
+    # e.g. a YouTube takedown changes the available-video set: the committed split stays the truth.
+    save_splits(make_match_splits(IDS, 0.15, 0.15, 42), tmp_path / "s.json")
+    with pytest.raises(SplitMismatchError, match="differs"):
+        sync_splits(make_match_splits(IDS[:-1], 0.15, 0.15, 42), tmp_path / "s.json", write=False)
+    assert load_splits(tmp_path / "s.json") == make_match_splits(IDS, 0.15, 0.15, 42)

@@ -31,8 +31,15 @@ def test_index_nycu_reads_published_layout(tmp_path):
         (match / "ball_trajectory" / "1_04_02_ball.csv").write_text("Frame,Visibility,X,Y\n")
         (match / "rally_video" / "1_04_02.mp4").write_bytes(b"")
     rallies = index_nycu(tmp_path)
-    assert [r.match_id for r in rallies] == [
-        "TrackNetV2/amateur_dataset/match1",
-        "TrackNetV2/profession_dataset/match1",
-    ]
+    assert [r.match_id for r in rallies] == ["amateur_dataset/match1", "profession_dataset/match1"]
     assert rallies[0].video_path.name == "1_04_02.mp4"
+
+
+def test_match_ids_do_not_depend_on_extraction_folders(tmp_path):
+    # Split files store these ids, so unzipping into a different folder must not change them.
+    match = tmp_path / "TrackNetV2" / "TrackNetV2" / "Professional" / "match1"
+    (match / "csv").mkdir(parents=True)
+    (match / "video").mkdir(parents=True)
+    (match / "csv" / "1_01_00_ball.csv").write_text("Frame,Visibility,X,Y\n")
+    (match / "video" / "1_01_00.mp4").write_bytes(b"")
+    assert [r.match_id for r in index_nycu(tmp_path)] == ["Professional/match1"]

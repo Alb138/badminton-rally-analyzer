@@ -24,6 +24,29 @@ def make_match_splits(
     }
 
 
+class SplitMismatchError(RuntimeError):
+    """The splits computed from the data on disk differ from the committed split file."""
+
+
+def sync_splits(splits: dict, path: Path, write: bool) -> None:
+    """Write ``splits`` only when asked; otherwise check them against the committed file.
+
+    The committed file is the source of truth: a re-download, a different unzip folder or a
+    video taken down must never silently move matches between train and test.
+    """
+    path = Path(path)
+    if write:
+        save_splits(splits, path)
+        return
+    if not path.exists():
+        raise SplitMismatchError(f"{path.as_posix()} does not exist; create it with --write-splits")
+    if load_splits(path) != splits:
+        raise SplitMismatchError(
+            f"{path.as_posix()} differs from the splits computed from the data on disk; "
+            "the committed file is kept. Rerun with --write-splits only if the change is intended."
+        )
+
+
 def save_splits(splits: dict, path: Path) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)

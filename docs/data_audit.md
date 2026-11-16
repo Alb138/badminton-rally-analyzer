@@ -8,37 +8,37 @@ Matches: 29 (23 professional, 3 official test, 3 amateur). Rallies: 201. Frames:
 
 | match | rallies | frames | visible_share | group |
 | --- | --- | --- | --- | --- |
-| TrackNetV2/TrackNetV2/Amateur/match1 | 10 | 3230 | 0.904 | amateur |
-| TrackNetV2/TrackNetV2/Amateur/match2 | 9 | 3222 | 0.908 | amateur |
-| TrackNetV2/TrackNetV2/Amateur/match3 | 7 | 3014 | 0.925 | amateur |
-| TrackNetV2/TrackNetV2/Professional/match1 | 12 | 3298 | 0.808 | professional |
-| TrackNetV2/TrackNetV2/Professional/match10 | 5 | 2673 | 0.885 | professional |
-| TrackNetV2/TrackNetV2/Professional/match11 | 5 | 2791 | 0.866 | professional |
-| TrackNetV2/TrackNetV2/Professional/match12 | 5 | 3206 | 0.959 | professional |
-| TrackNetV2/TrackNetV2/Professional/match13 | 6 | 2589 | 0.72 | professional |
-| TrackNetV2/TrackNetV2/Professional/match14 | 5 | 2774 | 0.882 | professional |
-| TrackNetV2/TrackNetV2/Professional/match15 | 5 | 2673 | 0.871 | professional |
-| TrackNetV2/TrackNetV2/Professional/match16 | 6 | 2924 | 0.89 | professional |
-| TrackNetV2/TrackNetV2/Professional/match17 | 6 | 2932 | 0.931 | professional |
-| TrackNetV2/TrackNetV2/Professional/match18 | 6 | 2690 | 0.791 | professional |
-| TrackNetV2/TrackNetV2/Professional/match19 | 5 | 2828 | 0.836 | professional |
-| TrackNetV2/TrackNetV2/Professional/match2 | 8 | 3184 | 0.81 | professional |
-| TrackNetV2/TrackNetV2/Professional/match20 | 6 | 3161 | 0.768 | professional |
-| TrackNetV2/TrackNetV2/Professional/match21 | 7 | 2678 | 0.916 | professional |
-| TrackNetV2/TrackNetV2/Professional/match22 | 5 | 3002 | 0.876 | professional |
-| TrackNetV2/TrackNetV2/Professional/match23 | 6 | 3087 | 0.894 | professional |
-| TrackNetV2/TrackNetV2/Professional/match3 | 7 | 3166 | 0.848 | professional |
-| TrackNetV2/TrackNetV2/Professional/match4 | 8 | 2896 | 0.792 | professional |
-| TrackNetV2/TrackNetV2/Professional/match5 | 6 | 3371 | 0.911 | professional |
-| TrackNetV2/TrackNetV2/Professional/match6 | 5 | 3479 | 0.924 | professional |
-| TrackNetV2/TrackNetV2/Professional/match7 | 5 | 3134 | 0.91 | professional |
-| TrackNetV2/TrackNetV2/Professional/match8 | 8 | 3353 | 0.878 | professional |
-| TrackNetV2/TrackNetV2/Professional/match9 | 9 | 3203 | 0.921 | professional |
-| TrackNetV2/TrackNetV2/Test/match1 | 11 | 4222 | 0.853 | official test |
-| TrackNetV2/TrackNetV2/Test/match2 | 7 | 4231 | 0.774 | official test |
-| TrackNetV2/TrackNetV2/Test/match3 | 11 | 4203 | 0.855 | official test |
+| Amateur/match1 | 10 | 3230 | 0.904 | amateur |
+| Amateur/match2 | 9 | 3222 | 0.908 | amateur |
+| Amateur/match3 | 7 | 3014 | 0.925 | amateur |
+| Professional/match1 | 12 | 3298 | 0.808 | professional |
+| Professional/match10 | 5 | 2673 | 0.885 | professional |
+| Professional/match11 | 5 | 2791 | 0.866 | professional |
+| Professional/match12 | 5 | 3206 | 0.959 | professional |
+| Professional/match13 | 6 | 2589 | 0.72 | professional |
+| Professional/match14 | 5 | 2774 | 0.882 | professional |
+| Professional/match15 | 5 | 2673 | 0.871 | professional |
+| Professional/match16 | 6 | 2924 | 0.89 | professional |
+| Professional/match17 | 6 | 2932 | 0.931 | professional |
+| Professional/match18 | 6 | 2690 | 0.791 | professional |
+| Professional/match19 | 5 | 2828 | 0.836 | professional |
+| Professional/match2 | 8 | 3184 | 0.81 | professional |
+| Professional/match20 | 6 | 3161 | 0.768 | professional |
+| Professional/match21 | 7 | 2678 | 0.916 | professional |
+| Professional/match22 | 5 | 3002 | 0.876 | professional |
+| Professional/match23 | 6 | 3087 | 0.894 | professional |
+| Professional/match3 | 7 | 3166 | 0.848 | professional |
+| Professional/match4 | 8 | 2896 | 0.792 | professional |
+| Professional/match5 | 6 | 3371 | 0.911 | professional |
+| Professional/match6 | 5 | 3479 | 0.924 | professional |
+| Professional/match7 | 5 | 3134 | 0.91 | professional |
+| Professional/match8 | 8 | 3353 | 0.878 | professional |
+| Professional/match9 | 9 | 3203 | 0.921 | professional |
+| Test/match1 | 11 | 4222 | 0.853 | official test |
+| Test/match2 | 7 | 4231 | 0.774 | official test |
+| Test/match3 | 11 | 4203 | 0.855 | official test |
 
-Splits written to `configs/splits/nycu.json`: train 20, val 3, test 3, amateur_test 3
+Splits match the committed `configs/splits/nycu.json`: train 20, val 3, test 3, amateur_test 3
 
 ## ShuttleSet
 
@@ -115,7 +115,7 @@ Available videos: 42/44
 | Anthony_Sinisuka_Ginting_Rasmus_Gemke_YONEX_Thailand_Open_2021_QuarterFinals | yes |  |
 | Carolina_Marin_Supanida_Katethong_YONEX_Thailand_Open_2021_QuarterFinals | yes |  |
 | Viktor_Axelsen_Jonatan_Christie_YONEX_Thailand_Open_2021_QuarterFinals | yes |  |
-| Viktor_Axelsen_Anthony_Sinisuka_Ginting_YONEX_Thailand_Open_2021_SemiFinals | no | [0;31mERROR:[0m [youtube] HTBf9wFL0mk: Video unavailable. This video is not available |
+| Viktor_Axelsen_Anthony_Sinisuka_Ginting_YONEX_Thailand_Open_2021_SemiFinals | no | ERROR: [youtube] HTBf9wFL0mk: Video unavailable. This video is not available |
 | Viktor_Axelsen_Ng_Ka_Long_Angus_YONEX_Thailand_Open_2021_Finals | yes |  |
 | An_Se_Young_Pornpawee_Chochuwong_TOYOTA_THAILAND_OPEN_2021_QuarterFinals | yes |  |
 | Anders_Antonsen_Sameer_Verma_TOYOTA_THAILAND_OPEN_2021_QuarterFinals | yes |  |
@@ -134,4 +134,6 @@ Available videos: 42/44
 | Carolina_Marin_Pornpawee_Chochuwong_HSBC_BWF_WORLD_TOUR_FINALS_2020_SemiFinals | yes |  |
 | Anders_Antonsen_Viktor_Axelsen_HSBC_BWF_WORLD_TOUR_FINALS_2020_Finals | yes |  |
 
-Splits over available-video matches written to `configs/splits/shuttleset.json`: train 30, val 6, test 6
+Splits are over the matches whose video is available.
+
+Splits match the committed `configs/splits/shuttleset.json`: train 30, val 6, test 6

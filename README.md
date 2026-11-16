@@ -45,7 +45,8 @@ The YOLOv8-pose weights download automatically to `third_party/weights/` on firs
 Then:
 
 ```bash
-uv run python scripts/audit_data.py   # writes docs/data_audit.md and configs/splits/*.json
+uv run python scripts/audit_data.py   # writes docs/data_audit.md and checks the committed configs/splits/*.json
+# (add --write-splits only to deliberately regenerate the split files)
 ```
 
 ## Usage
